@@ -1,0 +1,12 @@
+title: vex-pros
+description: Local Jekyll preview of GitHub Pages site
+baseurl: "/vex-pros"
+url: "https://uijincho.github.io"
+
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-github-metadata
+
+markdown: kramdown
