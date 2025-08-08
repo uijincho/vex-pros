@@ -28,6 +28,124 @@ Welcome to the VEX Robotics curriculum designed to teach students how to program
 
 ### Module 1: Intro to Programming & C++
 
+#### Data Types & Variables
+
+When writing code for robots, it is important to have a way to store and use information for things like motor speeds, sensor readings, and button presses.
+
+In C++, the programming language commonly used in VEX Robotics, this is done using **variables**. A variable is a labeled container where you can store a piece of data to use later.
+
+| Data Type | Example                             | What It Stores                                 | Example Usage                |
+| --------- | ----------------------------------- | ---------------------------------------------- | ---------------------------- |
+| `int`     | `int motorSpeed = 100;`             | Whole numbers (positive, negative, or zero)    | Motor speed, joystick values |
+| `bool`    | `bool clawOpen = true;`             | `true` or `false`                              | Is the claw open?            |
+| `double`  | `double wheelCircumference = 25.4;` | Decimal numbers with high precision            | Distance traveled in cm      |
+| `float`   | `float armAngle = 90.5;`            | Decimal numbers (less precision than `double`) | Arm angle in degrees         |
+
+To define and initialize variables with a value, you need:
+
+1. **a data type** - what kind of data it stores
+2. **a name** - so you can call it later
+3. **a value** - to be used later
+
+Example:
+```cpp
+int motorSpeed = 100;   // Create a variable and give it the value 100
+motorSpeed = 50;        // Change the value to 50
+```
+
+In PROS, motors need a port value to be created. Because these values stay constant with each program, a C++ concept called a macro is created to store the number. 
+
+```cpp
+#define ARM_PORT 8
+```
+
+#### Conditional Statements
+
+#### Operators
+
+It is also important to **perform calculations** or **make decisions** based on certain conditions. In C++, this is done with **operators**, symbols that tell the program what action to perform.
+
+| Arithmetic Operator | Example             | Meaning             | Example Usage                    |
+| -------- | ------------------- | ------------------- | -------------------------------- |
+| `+`      | `speed + 10`        | Addition            | Increase motor speed             |
+| `-`      | `speed - 5`         | Subtraction         | Decrease arm position            |
+| `*`      | `wheelDiameter * 3` | Multiplication      | Calculate total distance         |
+| `/`      | `distance / time`   | Division            | Calculate average speed          |
+| `%`      | `count % 2`         | Modulus (remainder) | Check if a number is even or odd |
+
+Example:
+```cpp
+int leftSpeed = 50;
+int rightSpeed = leftSpeed + 10; // rightSpeed is now 60
+```
+
+Logical operators are used to combine or modify **true/false** (`bool`) values. These are useful for checking multiple conditions at once.
+
+<table>
+  <thead>
+    <tr>
+      <th>Logical Operator</th>
+      <th>Example</th>
+      <th>Meaning</th>
+      <th>Example Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>&amp;&amp;</code></td>
+      <td><code>(buttonA &amp;&amp; buttonB)</code></td>
+      <td>AND — both must be true</td>
+      <td>Only move claw if both buttons are pressed</td>
+    </tr>
+    <tr>
+      <td><code>||</code></td>
+      <td><code>(buttonA || buttonB)</code></td>
+      <td>OR — one must be true</td>
+      <td>Move claw if either button is pressed</td>
+    </tr>
+    <tr>
+      <td><code>!</code></td>
+      <td><code>!clawOpen</code></td>
+      <td>NOT — reverse the value</td>
+      <td>Run code if claw is <strong>not</strong> open</td>
+    </tr>
+  </tbody>
+</table>
+
+Example:
+```cpp
+bool armUp = true;
+bool clawOpen = false;
+
+if (armUp && !clawOpen) {
+    // Arm is up AND claw is closed
+}
+```
+
+Relational operators compare two values and return `true` or `false`.
+
+| Relational Operator | Example       | Meaning      | Example Usage                           |
+| -------- | ------------- | ------------ | --------------------------------------- |
+| `<`      | `speed < 100` | Less than    | Check if speed is below a limit         |
+| `>`      | `speed > 0`   | Greater than | Check if robot is moving forward        |
+| `==`     | `count == 5`  | Equal to     | Check if a counter has reached a target |
+| `!=`     | `mode != 1`   | Not equal to | Check if the mode is not 1              |
+
+> `==` is to check if two values are equal. `=` is for assigning a value to something.
+
+Example: 
+```cpp 
+int speed = 80;
+
+if (speed < 100) {
+    // Increase speed
+}
+```
+
+#### Loops
+
+#### Functions
+
 ### Module 2: Setting up a Project & Motors in PROS
 
 ### Module 3: Tank Drive & Arm/Claw Control for the Clawbot
