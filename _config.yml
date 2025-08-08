@@ -3,10 +3,16 @@ description: Local Jekyll preview of GitHub Pages site
 baseurl: "/vex-pros"
 url: "https://uijincho.github.io"
 
-theme: minima
+remote_theme: just-the-docs/just-the-docs
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-github-metadata
 
+collections:
+  pages: 
+    output: true
+search_enabled: true
+color_scheme: light
+heading_anchors: true
 markdown: kramdown
