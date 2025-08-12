@@ -61,6 +61,95 @@ In PROS, motors need a port value to be created. Because these values stay const
 
 #### Conditional Statements
 
+Robots need to make decisions; for example, deciding whether to open or close the claw or to move forward or stop. 
+
+In C++, **conditional statements** help run different code depending on whether certain conditions are **true** or **false**.
+
+##### `if` Statement
+
+Runs a block of code **only if** a condition is true.
+
+**Format:**
+
+```cpp
+if (condition) {
+  // Code runs if condition is true
+}
+```
+
+**Example:**
+
+```cpp
+if (buttonPressed) {
+  Claw.move_velocity(100); // Open claw
+}
+```
+If `buttonPressed` is `true`, then the claw will open.
+
+##### `else if` Statement
+
+Adds another condition to check **if the first one was false.**
+
+**Format:**
+
+```cpp
+if (condition1) {
+  // Code runs if condition1 is true
+}
+else if (condition2) {
+  // Runs if condition2 is true AND condition1 was false
+}
+```
+
+**Example:**
+
+```cpp
+if (buttonOpen) {
+  Claw.move_velocity(100); // Open claw
+}
+else if (buttonClose) {
+  Claw.move_velocity(-100); // Close claw
+}
+```
+If `buttonOpen` is `true`, then the claw will open. But if that was not true **and** buttonClose is true, then the claw will close.
+
+##### `else` Statement
+
+Runs a block of code if **none of the previous conditions** were true.
+
+**Format:**
+
+```cpp
+if (condition1) {
+  // ...
+}
+else if (condition2) {
+  // ...
+}
+else {
+  // Runs if all above are false
+}
+```
+
+**Example:**
+
+```cpp
+if (buttonOpen) {
+  Claw.move_velocity(100); // Open claw
+}
+else if (buttonClose) {
+  Claw.move_velocity(-100); // Close claw
+}
+else {
+   Claw.move_velocity(0); // Stop claw
+}
+```
+If `buttonOpen` is `true`, then the claw will open. But if that was not true **and** buttonClose is true, then the claw will close. If **none** of those conditions are true, the claw will not move.
+
+> It can be helpful to use a **flowchart** to plan out the logic of your program before you write the code.
+
+> You can use `if`, multiple `else if`s, and `else` together or just `if` and `else`. Typically, when you use an `if`, you will need to use an `else` statement as well.
+
 #### Operators
 
 It is also important to **perform calculations** or **make decisions** based on certain conditions. In C++, this is done with **operators**, symbols that tell the program what action to perform.
@@ -143,6 +232,66 @@ if (speed < 100) {
 ```
 
 #### Loops
+
+A `while` loop repeats as long as a certain condition is `true`.
+
+**Format:**
+```cpp
+while (condtion) {
+  // code that repeats while a condition is true
+}
+```
+
+**Example:**
+```cpp
+int count = 0 {
+
+while (count < 5) {
+  count = count + 1;
+}
+```
+
+This loop will repeat until the `count` variable reaches 5.
+
+Sometimes in robotics, a `while(true)` loop will be used, creating an infinite loop which never ends until the program is stopped or `break` is used. This is common in **robot operator control mode**, because the robot needs to keep responding to the controller until the match ends.
+
+**Example in PROS:**
+
+```cpp
+while(true) {
+  // Check controller input
+  // Move motors
+  pros::delay(20); // Prevent CPU overload
+}
+```
+
+Here, the robot keeps running the code inside the loop forever during driver control.
+
+A `for` loop is used when y ou know exactly how many times you want to repeat something. 
+
+It is often used for counting or going through a sequence of numbers.
+
+**Format:**
+```cpp
+for (start; condition; update) {
+  // Code that repeats
+}
+```
+
+**Example:**
+```cpp
+for (int i = 0; i < 5; i++) {
+  // Run 5 times, i goes from 0 until it isn't less than 5 (4)
+}
+```
+
+##### Key Differences
+| Feature          | `while` Loop                            | `for` Loop                                              |
+| ---------------- | --------------------------------------- | ------------------------------------------------------- |
+| Best for         | Repeating until a condition changes     | Repeating a set number of times                         |
+| Loop setup style | Condition only                          | Start, condition, and update in one line                |
+| Common in PROS   | `while(true)` for continuous robot code | Rare in main control loop, but useful for timed actions |
+
 
 #### Functions
 
