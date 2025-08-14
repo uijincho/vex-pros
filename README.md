@@ -293,11 +293,11 @@ for (int i = 0; i < 5; i++) {
 | Common in PROS   | `while(true)` for continuous robot code | Rare in main control loop, but useful for timed actions |
 
 
-#### Functions
+### Functions
 
 Functions let you put actions that you would use repeatedly (like setting the claw speed, or driving forwards or backwards) into named blocks of code.
 
-### What is a function?
+#### What is a function?
 
 A function has: 
 
@@ -306,7 +306,7 @@ A function has:
 - **Parameters** (inputs)
 - **Body** (the code it runs)
 
-### Format:
+#### Format:
 
 ```cpp
 return_type functionName(parameterType1 param1, parameterType2 param2){
@@ -315,7 +315,7 @@ return value;
 }
 ```
 
-### Example without return:
+#### Example without return:
 
 ```cpp
 void setClawSpeed(int rpm) {
@@ -323,7 +323,7 @@ void setClawSpeed(int rpm) {
 }
 ```
 
-### Example with return:
+#### Example with return:
 
 ```cpp
 double average(double a, double b) {
@@ -332,13 +332,13 @@ double average(double a, double b) {
 
 ```
 
-### Why would we use functions in robotics?
+#### Why would we use functions in robotics?
 
 - **Reuse:** Call the same behavior between driver control and autonomous.
 - **Clarity:** Give names to actions (e.g. `openClaw()`, `driveStraight()`).
 - Testing: You can test small pieces independently.
 
-### Parameters & Return Types
+#### Parameters & Return Types
 
 - **Parameters** are inputs your function needs
 - **Return type** is the kind of value the function gives back
@@ -360,7 +360,7 @@ void stopDrive() {
 
 ```
 
-### Pass‑by‑Value vs Pass‑by‑Reference (*advanced*)
+#### Pass‑by‑Value vs Pass‑by‑Reference (*advanced*)
 
 By default, parameters are **copied** (pass‑by‑value). For large data or when you want to **modify** the caller’s variable, use a **reference** (`&`).
 
@@ -382,7 +382,7 @@ void printName(const std::string &name) {
 }
 ```
 
-### Function Declarations (Prototypes)
+#### Function Declarations (Prototypes)
 
 If you call a function **before** it’s defined, you need a **prototype** at the top of the file (or in a header).
 ... (135 lines left)
