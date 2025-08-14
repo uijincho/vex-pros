@@ -295,6 +295,98 @@ for (int i = 0; i < 5; i++) {
 
 #### Functions
 
+Functions let you put actions that you would use repeatedly (like setting the claw speed, or driving forwards or backwards) into named blocks of code.
+
+### What is a function?
+
+A function has: 
+
+- **Return Type** (what it gives back; `void` if nothing)
+- **Name**
+- **Parameters** (inputs)
+- **Body** (the code it runs)
+
+### Format:
+
+```cpp
+return_type functionName(parameterType1 param1, parameterType2 param2){
+//do something here 
+return value;
+}
+```
+
+### Example without return:
+
+```cpp
+void setClawSpeed(int rpm) {
+  Claw.move_velocity(rpm);
+}
+```
+
+### Example with return:
+
+```cpp
+double average(double a, double b) {
+  return (a + b) / 2.0;
+}
+
+```
+
+### Why would we use functions in robotics?
+
+- **Reuse:** Call the same behavior between driver control and autonomous.
+- **Clarity:** Give names to actions (e.g. `openClaw()`, `driveStraight()`).
+- Testing: You can test small pieces independently.
+
+### Parameters & Return Types
+
+- **Parameters** are inputs your function needs
+- **Return type** is the kind of value the function gives back
+
+```cpp
+// Input joystick value, output scaled motor speed
+int scaleSpeed(int stick) {
+  return stick * 2; // example scaling
+}
+```
+
+If your function doesn’t need to return anything, use `void`:
+
+```cpp
+void stopDrive() {
+  LeftDrive.move_velocity(0);
+  RightDrive.move_velocity(0);
+}
+
+```
+
+### Pass‑by‑Value vs Pass‑by‑Reference (*advanced*)
+
+By default, parameters are **copied** (pass‑by‑value). For large data or when you want to **modify** the caller’s variable, use a **reference** (`&`).
+
+```cpp
+// Pass-by-value (copy):
+void setTarget(int target) { /* uses a copy */ }
+
+// Pass-by-reference (can modify original):
+void zeroIfSmall(int &value) {
+  if (value < 10) value = 0; // changes caller's variable
+}
+```
+
+Use `const &` when you won’t modify the input but want to avoid copies:
+
+```cpp
+void printName(const std::string &name) {
+  // name is read-only here
+}
+```
+
+### Function Declarations (Prototypes)
+
+If you call a function **before** it’s defined, you need a **prototype** at the top of the file (or in a header).
+... (135 lines left)
+
 ### Module 2: Setting up a Project & Motors in PROS
 
 ### Module 3: Tank Drive & Arm/Claw Control for the Clawbot
