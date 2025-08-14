@@ -385,7 +385,142 @@ void printName(const std::string &name) {
 #### Function Declarations (Prototypes)
 
 If you call a function **before** it’s defined, you need a **prototype** at the top of the file (or in a header).
-... (135 lines left)
+
+```cpp
+// Prototype (declaration)
+void openClaw();
+
+// Later or in another file (definition)
+void openClaw() {
+  Claw.move_velocity(100);
+}
+```
+
+### Function Overloading (Same Name, Different Inputs)
+
+You can reuse a function name as long as the parameter list differs.
+
+```cpp
+void driveForTime(int ms, int rpm);
+void driveForTime(int ms); // uses a default speed
+
+void driveForTime(int ms, int rpm) {
+  LeftDrive.move_velocity(rpm);
+  RightDrive.move_velocity(rpm);
+  pros::delay(ms);
+  stopDrive();
+}
+
+void driveForTime(int ms) { // default to 100 rpm
+  driveForTime(ms, 100);
+}
+
+```
+
+### Using Functions in PROS
+
+Functions are especially useful in robotics for turning common actions—like reading controller input, spinning motors, or using sensors—into reusable building blocks. This keeps your code clean, consistent, and easier to update.
+
+Below are examples of using functions in PROS to handle common robot tasks.
+
+```cpp
+int getLeftJoystick() {
+  return Controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+}
+
+bool isButtonPressed(pros::controller_digital_e_t button) {
+  return Controller.get_digital(button);
+}
+```
+
+**Example Usage:** 
+
+```cpp
+int left = getLeftJoystick();
+if (isButtonPressed(pros::E_CONTROLLER_DIGITAL_R1)) {
+  // Do something when R1 is pressed
+}
+```
+
+**Actuating a Piston (Pneumatics):** 
+
+```cpp
+void setPiston(bool extended) {
+  piston.set_value(extended); // true = extend, false = retract
+}
+```
+
+Example Usage: 
+
+```cpp
+if (isButtonPressed(pros::E_CONTROLLER_DIGITAL_L1)) setPiston(true);
+if (isButtonPressed(pros::E_CONTROLLER_DIGITAL_L2)) setPiston(false);
+```
+
+**Spinning an Intake Motor (Forward & Backward)**
+
+```cpp
+void runIntakeForward(int speed) {
+  Intake.move_velocity(speed);
+}
+
+void runIntakeBackward(int speed) {
+  Intake.move_velocity(-speed);
+}
+```
+
+Example usage:
+
+```cpp
+if (isButtonPressed(pros::E_CONTROLLER_DIGITAL_R1)) runIntakeForward(200);  // Forward
+else if (isButtonPressed(pros::E_CONTROLLER_DIGITAL_R2)) runIntakeBackward(200); // Reverse
+else runIntake(0); // Stop
+
+```
+
+**Preset Scoring Heights & Toggling Through Them**
+
+```cpp
+int heightIndex = 0;
+const int heights[] = {0, 500, 1000}; // Encoder units for arm positions
+
+void nextHeight() {
+  heightIndex = (heightIndex + 1) % 3;
+  Arm.move_absolute(heights[heightIndex], 100); // Move to next preset
+}
+```
+
+Example usage:
+
+```cpp
+if (isButtonPressed(pros::E_CONTROLLER_DIGITAL_UP)) nextHeight();
+```
+
+**Using a Gyro or Rotation Sensor for Movement**
+
+```cpp
+void turnToAngle(double targetAngle) {
+  while (fabs(Gyro.get_heading() - targetAngle) > 2) {
+    int direction = (Gyro.get_heading() < targetAngle) ? 1 : -1;
+    LeftDrive.move_velocity(50 * direction);
+    RightDrive.move_velocity(-50 * direction);
+    pros::delay(20);
+  }
+  LeftDrive.move_velocity(0);
+  RightDrive.move_velocity(0);
+}
+```
+
+Example Usage: 
+
+```cpp
+turnToAngle(90); // Turn to 90 degrees using gyro
+```
+
+**Tip:**
+
+You can combine these functions in `opcontrol()` or `autonomous()` to make complex behaviors simple to write and easy to adjust later.
+
 
 ### Module 2: Setting up a Project & Motors in PROS
 
