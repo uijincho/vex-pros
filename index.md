@@ -34,25 +34,25 @@ Welcome to the VEX Robotics curriculum designed to teach students how to program
 
 #### 2. Download [PROS](https://pros.cs.purdue.edu/) extension in Visual Studio Code
 
-<img width="800px" src="assets/images/1.png"> </img>
+<img width="800px" src="assets/images/1.png">
 
-<img width="800px" src="assets/images/4.png"> </img>
+<img width="800px" src="assets/images/4.png">
 
 #### 3. Download C/C++ and C/C++ Extension Pack extension in Visual Studio Code
 
-<img width="800px" src="assets/images/2.png"> </img>
+<img width="800px" src="assets/images/2.png">  
 
 #### 4. Click on PROS extension and install all pop ups
 
-<img width="800px" src="assets/images/3.png"> </img>
+<img width="800px" src="assets/images/3.png">  
 
 #### 5. Create new PROS project and choose all recommended settings
 
-<img width="800px" src="assets/images/5.png"> </img>
+<img width="800px" src="assets/images/5.png">  
 
-<img width="800px" src="assets/images/6.png"> </img>
+<img width="800px" src="assets/images/6.png">  
 
-<img width="800px" src="assets/images/7.png"> </img>
+<img width="800px" src="assets/images/7.png">  
 
 > It might take a while to create a new project...
 > Having trouble? Check out the official [PROS installation guide](https://pros.cs.purdue.edu/v5/getting-started/index.html)
@@ -319,12 +319,29 @@ for (int i = 0; i < 5; i++) {
 ```
 
 ##### Key Differences
-| Feature          | `while` Loop                            | `for` Loop                                              |
-| ---------------- | --------------------------------------- | ------------------------------------------------------- |
-| Best for         | Repeating until a condition changes     | Repeating a set number of times                         |
-| Loop setup style | Condition only                          | Start, condition, and update in one line                |
-| Common in PROS   | `while(true)` for continuous robot code | Rare in main control loop, but useful for timed actions |
 
+<table>
+  <tr>
+    <th>Feature</th>
+    <th><code>while</code> Loop</th>
+    <th><code>for</code> Loop</th>
+  </tr>
+  <tr>
+    <td>Best for</td>
+    <td>Repeating until a condition changes</td>
+    <td>Repeating a set number of times</td>
+  </tr>
+  <tr>
+    <td>Loop setup style</td>
+    <td>Condition only</td>
+    <td>Start, condition, and update in one line</td>
+  </tr>
+  <tr>
+    <td>Common in PROS</td>
+    <td><code>while(true)</code> for continuous robot code</td>
+    <td>Rare in main control loop, but useful for timed actions</td>
+  </tr>
+</table>
 
 ### Functions
 
@@ -557,19 +574,19 @@ turnToAngle(90); // Turn to 90 degrees using gyro
 
 #### Create a new project in PROS
 
-<img width="800px" src="assets/images/5.png"> </img>
+<img width="800px" src="assets/images/5.png">  
 
-<img width="800px" src="assets/images/6.png"> </img>
+<img width="800px" src="assets/images/6.png">  
 
-<img width="800px" src="assets/images/7.png"> </img>
+<img width="800px" src="assets/images/7.png">  
 
 #### Getting familiar with the project
 
-<img width="800px" src="assets/images/8.png"> </img>
+<img width="800px" src="assets/images/8.png">  
 
-<img width="800px" src="assets/images/9.png"> </img>
+<img width="800px" src="assets/images/9.png">  
 
-<img width="800px" src="assets/images/10.png"> </img>
+<img width="800px" src="assets/images/10.png">  
 
 #### Setting up your main.cpp
 
@@ -665,4 +682,4 @@ Created by [Uijin Cho](https://github.com/uijincho), [Dhruv Patel](https://githu
 
 Suggestions? Create an [issue](https://github.com/uijincho/vex-pros/issues)
 
-Created for [Robolabs | Dublin Robotics Club](https://www.robolabs.org/)
+Created for [Robolabs / Dublin Robotics Club](https://www.robolabs.org/)
