@@ -26,11 +26,630 @@ Welcome to the VEX Robotics curriculum designed to teach students how to program
 
 ### Module 0: Setting up Visual Studio Code & PROS
 
+#### 1. Install [Visual Studio Code](https://code.visualstudio.com/)
+
+<div style="display: flex; justify-content: center;">
+  <img src="https://res.cloudinary.com/canonical/image/fetch/f_auto,q_auto,fl_sanitize,c_fill,w_480/https%3A%2F%2Fubuntu.com%2Fwp-content%2Fuploads%2Fc9f4%2Fvisualstudio_code-card.png" alt="VS Code">
+</div>
+
+#### 2. Download [PROS](https://pros.cs.purdue.edu/) extension in Visual Studio Code
+
+<img width="800px" src="assets/images/1.png"> </img>
+
+<img width="800px" src="assets/images/4.png"> </img>
+
+#### 3. Download C/C++ and C/C++ Extension Pack extension in Visual Studio Code
+
+<img width="800px" src="assets/images/2.png"> </img>
+
+#### 4. Click on PROS extension and install all pop ups
+
+<img width="800px" src="assets/images/3.png"> </img>
+
+#### 5. Create new PROS project and choose all recommended settings
+
+<img width="800px" src="assets/images/5.png"> </img>
+
+<img width="800px" src="assets/images/6.png"> </img>
+
+<img width="800px" src="assets/images/7.png"> </img>
+
+> It might take a while to create a new project...
+> Having trouble? Check out the official [PROS installation guide](https://pros.cs.purdue.edu/v5/getting-started/index.html)
+
+#### Congratulations! You've created your very first PROS project. :)
+
 ### Module 1: Intro to Programming & C++
+
+#### Data Types & Variables
+
+When writing code for robots, it is important to have a way to store and use information for things like motor speeds, sensor readings, and button presses.
+
+In C++, the programming language commonly used in VEX Robotics, this is done using **variables**. A variable is a labeled container where you can store a piece of data to use later.
+
+| Data Type | Example                             | What It Stores                                 | Example Usage                |
+| --------- | ----------------------------------- | ---------------------------------------------- | ---------------------------- |
+| `int`     | `int motorSpeed = 100;`             | Whole numbers (positive, negative, or zero)    | Motor speed, joystick values |
+| `bool`    | `bool clawOpen = true;`             | `true` or `false`                              | Is the claw open?            |
+| `double`  | `double wheelCircumference = 25.4;` | Decimal numbers with high precision            | Distance traveled in cm      |
+| `float`   | `float armAngle = 90.5;`            | Decimal numbers (less precision than `double`) | Arm angle in degrees         |
+
+To define and initialize variables with a value, you need:
+
+1. **a data type** - what kind of data it stores
+2. **a name** - so you can call it later
+3. **a value** - to be used later
+
+Example:
+```cpp
+int motorSpeed = 100;   // Create a variable and give it the value 100
+motorSpeed = 50;        // Change the value to 50
+```
+
+In PROS, motors need a port value to be created. Because these values stay constant with each program, a C++ concept called a macro is created to store the number. 
+
+```cpp
+#define ARM_PORT 8
+```
+
+#### Conditional Statements
+
+Robots need to make decisions; for example, deciding whether to open or close the claw or to move forward or stop. 
+
+In C++, **conditional statements** help run different code depending on whether certain conditions are **true** or **false**.
+
+##### `if` Statement
+
+Runs a block of code **only if** a condition is true.
+
+**Format:**
+
+```cpp
+if (condition) {
+  // Code runs if condition is true
+}
+```
+
+**Example:**
+
+```cpp
+if (buttonPressed) {
+  Claw.move_velocity(100); // Open claw
+}
+```
+If `buttonPressed` is `true`, then the claw will open.
+
+##### `else if` Statement
+
+Adds another condition to check **if the first one was false.**
+
+**Format:**
+
+```cpp
+if (condition1) {
+  // Code runs if condition1 is true
+}
+else if (condition2) {
+  // Runs if condition2 is true AND condition1 was false
+}
+```
+
+**Example:**
+
+```cpp
+if (buttonOpen) {
+  Claw.move_velocity(100); // Open claw
+}
+else if (buttonClose) {
+  Claw.move_velocity(-100); // Close claw
+}
+```
+If `buttonOpen` is `true`, then the claw will open. But if that was not true **and** buttonClose is true, then the claw will close.
+
+##### `else` Statement
+
+Runs a block of code if **none of the previous conditions** were true.
+
+**Format:**
+
+```cpp
+if (condition1) {
+  // ...
+}
+else if (condition2) {
+  // ...
+}
+else {
+  // Runs if all above are false
+}
+```
+
+**Example:**
+
+```cpp
+if (buttonOpen) {
+  Claw.move_velocity(100); // Open claw
+}
+else if (buttonClose) {
+  Claw.move_velocity(-100); // Close claw
+}
+else {
+   Claw.move_velocity(0); // Stop claw
+}
+```
+If `buttonOpen` is `true`, then the claw will open. But if that was not true **and** buttonClose is true, then the claw will close. If **none** of those conditions are true, the claw will not move.
+
+> It can be helpful to use a **flowchart** to plan out the logic of your program before you write the code.
+
+> You can use `if`, multiple `else if`s, and `else` together or just `if` and `else`. Typically, when you use an `if`, you will need to use an `else` statement as well.
+
+#### Operators
+
+It is also important to **perform calculations** or **make decisions** based on certain conditions. In C++, this is done with **operators**, symbols that tell the program what action to perform.
+
+| Arithmetic Operator | Example             | Meaning             | Example Usage                    |
+| -------- | ------------------- | ------------------- | -------------------------------- |
+| `+`      | `speed + 10`        | Addition            | Increase motor speed             |
+| `-`      | `speed - 5`         | Subtraction         | Decrease arm position            |
+| `*`      | `wheelDiameter * 3` | Multiplication      | Calculate total distance         |
+| `/`      | `distance / time`   | Division            | Calculate average speed          |
+| `%`      | `count % 2`         | Modulus (remainder) | Check if a number is even or odd |
+
+Example:
+```cpp
+int leftSpeed = 50;
+int rightSpeed = leftSpeed + 10; // rightSpeed is now 60
+```
+
+Logical operators are used to combine or modify **true/false** (`bool`) values. These are useful for checking multiple conditions at once.
+
+<table>
+  <thead>
+    <tr>
+      <th>Logical Operator</th>
+      <th>Example</th>
+      <th>Meaning</th>
+      <th>Example Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>&amp;&amp;</code></td>
+      <td><code>(buttonA &amp;&amp; buttonB)</code></td>
+      <td>AND — both must be true</td>
+      <td>Only move claw if both buttons are pressed</td>
+    </tr>
+    <tr>
+      <td><code>||</code></td>
+      <td><code>(buttonA || buttonB)</code></td>
+      <td>OR — one must be true</td>
+      <td>Move claw if either button is pressed</td>
+    </tr>
+    <tr>
+      <td><code>!</code></td>
+      <td><code>!clawOpen</code></td>
+      <td>NOT — reverse the value</td>
+      <td>Run code if claw is <strong>not</strong> open</td>
+    </tr>
+  </tbody>
+</table>
+
+Example:
+```cpp
+bool armUp = true;
+bool clawOpen = false;
+
+if (armUp && !clawOpen) {
+    // Arm is up AND claw is closed
+}
+```
+
+Relational operators compare two values and return `true` or `false`.
+
+| Relational Operator | Example       | Meaning      | Example Usage                           |
+| -------- | ------------- | ------------ | --------------------------------------- |
+| `<`      | `speed < 100` | Less than    | Check if speed is below a limit         |
+| `>`      | `speed > 0`   | Greater than | Check if robot is moving forward        |
+| `==`     | `count == 5`  | Equal to     | Check if a counter has reached a target |
+| `!=`     | `mode != 1`   | Not equal to | Check if the mode is not 1              |
+
+> `==` is to check if two values are equal. `=` is for assigning a value to something.
+
+Example: 
+```cpp 
+int speed = 80;
+
+if (speed < 100) {
+    // Increase speed
+}
+```
+
+#### Loops
+
+A `while` loop repeats as long as a certain condition is `true`.
+
+**Format:**
+```cpp
+while (condtion) {
+  // code that repeats while a condition is true
+}
+```
+
+**Example:**
+```cpp
+int count = 0 {
+
+while (count < 5) {
+  count = count + 1;
+}
+```
+
+This loop will repeat until the `count` variable reaches 5.
+
+Sometimes in robotics, a `while(true)` loop will be used, creating an infinite loop which never ends until the program is stopped or `break` is used. This is common in **robot operator control mode**, because the robot needs to keep responding to the controller until the match ends.
+
+**Example in PROS:**
+
+```cpp
+while(true) {
+  // Check controller input
+  // Move motors
+  pros::delay(20); // Prevent CPU overload
+}
+```
+
+Here, the robot keeps running the code inside the loop forever during driver control.
+
+A `for` loop is used when y ou know exactly how many times you want to repeat something. 
+
+It is often used for counting or going through a sequence of numbers.
+
+**Format:**
+```cpp
+for (start; condition; update) {
+  // Code that repeats
+}
+```
+
+**Example:**
+```cpp
+for (int i = 0; i < 5; i++) {
+  // Run 5 times, i goes from 0 until it isn't less than 5 (4)
+}
+```
+
+##### Key Differences
+| Feature          | `while` Loop                            | `for` Loop                                              |
+| ---------------- | --------------------------------------- | ------------------------------------------------------- |
+| Best for         | Repeating until a condition changes     | Repeating a set number of times                         |
+| Loop setup style | Condition only                          | Start, condition, and update in one line                |
+| Common in PROS   | `while(true)` for continuous robot code | Rare in main control loop, but useful for timed actions |
+
+
+### Functions
+
+Functions let you put actions that you would use repeatedly (like setting the claw speed, or driving forwards or backwards) into named blocks of code.
+
+#### What is a function?
+
+A function has: 
+
+- **Return Type** (what it gives back; `void` if nothing)
+- **Name**
+- **Parameters** (inputs)
+- **Body** (the code it runs)
+
+#### Format:
+
+```cpp
+return_type functionName(parameterType1 param1, parameterType2 param2){
+//do something here 
+return value;
+}
+```
+
+#### Example without return:
+
+```cpp
+void setClawSpeed(int rpm) {
+  Claw.move_velocity(rpm);
+}
+```
+
+#### Example with return:
+
+```cpp
+double average(double a, double b) {
+  return (a + b) / 2.0;
+}
+
+```
+
+#### Why would we use functions in robotics?
+
+- **Reuse:** Call the same behavior between driver control and autonomous.
+- **Clarity:** Give names to actions (e.g. `openClaw()`, `driveStraight()`).
+- Testing: You can test small pieces independently.
+
+#### Parameters & Return Types
+
+- **Parameters** are inputs your function needs
+- **Return type** is the kind of value the function gives back
+
+```cpp
+// Input joystick value, output scaled motor speed
+int scaleSpeed(int stick) {
+  return stick * 2; // example scaling
+}
+```
+
+If your function doesn’t need to return anything, use `void`:
+
+```cpp
+void stopDrive() {
+  LeftDrive.move_velocity(0);
+  RightDrive.move_velocity(0);
+}
+
+```
+
+#### Pass‑by‑Value vs Pass‑by‑Reference (*advanced*)
+
+By default, parameters are **copied** (pass‑by‑value). For large data or when you want to **modify** the caller’s variable, use a **reference** (`&`).
+
+```cpp
+// Pass-by-value (copy):
+void setTarget(int target) { /* uses a copy */ }
+
+// Pass-by-reference (can modify original):
+void zeroIfSmall(int &value) {
+  if (value < 10) value = 0; // changes caller's variable
+}
+```
+
+Use `const &` when you won’t modify the input but want to avoid copies:
+
+```cpp
+void printName(const std::string &name) {
+  // name is read-only here
+}
+```
+
+#### Function Declarations (Prototypes)
+
+If you call a function **before** it’s defined, you need a **prototype** at the top of the file (or in a header).
+
+```cpp
+// Prototype (declaration)
+void openClaw();
+
+// Later or in another file (definition)
+void openClaw() {
+  Claw.move_velocity(100);
+}
+```
+
+### Function Overloading (Same Name, Different Inputs)
+
+You can reuse a function name as long as the parameter list differs.
+
+```cpp
+void driveForTime(int ms, int rpm);
+void driveForTime(int ms); // uses a default speed
+
+void driveForTime(int ms, int rpm) {
+  LeftDrive.move_velocity(rpm);
+  RightDrive.move_velocity(rpm);
+  pros::delay(ms);
+  stopDrive();
+}
+
+void driveForTime(int ms) { // default to 100 rpm
+  driveForTime(ms, 100);
+}
+
+```
+
+### Using Functions in PROS
+
+Functions are especially useful in robotics for turning common actions—like reading controller input, spinning motors, or using sensors—into reusable building blocks. This keeps your code clean, consistent, and easier to update.
+
+Below are examples of using functions in PROS to handle common robot tasks.
+
+```cpp
+int getLeftJoystick() {
+  return Controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+}
+
+bool isButtonPressed(pros::controller_digital_e_t button) {
+  return Controller.get_digital(button);
+}
+```
+
+**Example Usage:** 
+
+```cpp
+int left = getLeftJoystick();
+if (isButtonPressed(pros::E_CONTROLLER_DIGITAL_R1)) {
+  // Do something when R1 is pressed
+}
+```
+
+**Actuating a Piston (Pneumatics):** 
+
+```cpp
+void setPiston(bool extended) {
+  piston.set_value(extended); // true = extend, false = retract
+}
+```
+
+Example Usage: 
+
+```cpp
+if (isButtonPressed(pros::E_CONTROLLER_DIGITAL_L1)) setPiston(true);
+if (isButtonPressed(pros::E_CONTROLLER_DIGITAL_L2)) setPiston(false);
+```
+
+**Spinning an Intake Motor (Forward & Backward)**
+
+```cpp
+void runIntakeForward(int speed) {
+  Intake.move_velocity(speed);
+}
+
+void runIntakeBackward(int speed) {
+  Intake.move_velocity(-speed);
+}
+```
+
+Example usage:
+
+```cpp
+if (isButtonPressed(pros::E_CONTROLLER_DIGITAL_R1)) runIntakeForward(200);  // Forward
+else if (isButtonPressed(pros::E_CONTROLLER_DIGITAL_R2)) runIntakeBackward(200); // Reverse
+else runIntake(0); // Stop
+
+```
+
+**Preset Scoring Heights & Toggling Through Them**
+
+```cpp
+int heightIndex = 0;
+const int heights[] = {0, 500, 1000}; // Encoder units for arm positions
+
+void nextHeight() {
+  heightIndex = (heightIndex + 1) % 3;
+  Arm.move_absolute(heights[heightIndex], 100); // Move to next preset
+}
+```
+
+Example usage:
+
+```cpp
+if (isButtonPressed(pros::E_CONTROLLER_DIGITAL_UP)) nextHeight();
+```
+
+**Using a Gyro or Rotation Sensor for Movement**
+
+```cpp
+void turnToAngle(double targetAngle) {
+  while (fabs(Gyro.get_heading() - targetAngle) > 2) {
+    int direction = (Gyro.get_heading() < targetAngle) ? 1 : -1;
+    LeftDrive.move_velocity(50 * direction);
+    RightDrive.move_velocity(-50 * direction);
+    pros::delay(20);
+  }
+  LeftDrive.move_velocity(0);
+  RightDrive.move_velocity(0);
+}
+```
+
+Example Usage: 
+
+```cpp
+turnToAngle(90); // Turn to 90 degrees using gyro
+```
+
+> You can combine these functions in `opcontrol()` or `autonomous()` to make complex behaviors simple to write and easy to adjust later.
+
 
 ### Module 2: Setting up a Project & Motors in PROS
 
+#### Create a new project in PROS
+
+<img width="800px" src="assets/images/5.png"> </img>
+
+<img width="800px" src="assets/images/6.png"> </img>
+
+<img width="800px" src="assets/images/7.png"> </img>
+
+#### Getting familiar with the project
+
+<img width="800px" src="assets/images/8.png"> </img>
+
+<img width="800px" src="assets/images/9.png"> </img>
+
+<img width="800px" src="assets/images/10.png"> </img>
+
+#### Setting up your main.cpp
+
+In the beginning of your `main.cpp` file, there is `#include "main.h"`. Beneath it, please add:
+
+```cpp
+#include "pros/motors.hpp"
+#include <cmath>
+```
+
+> What are `.h` and `.hpp` files? Check [this](https://www.geeksforgeeks.org/cpp/header-files-in-c-c-with-examples/) out
+
+Then, create [macros](https://www.geeksforgeeks.org/cpp/cpp-macros/) for your motor ports. The format will be `#define WHAT_MOTOR X`, with X being the number port on the brain that your motor is connected to.
+
+For the beginner clawbot, you will need a left drivetrain motor, right drivetrain motor, arm motor, and claw motor.
+
+**Example:**
+```cpp
+// change numbers as needed to match with ports
+#define LEFT_MOTOR 1
+#define RIGHT_MOTOR 10
+#define ARM 8
+#define CLAW 3
+```
+
+> Please use all caps for these macros :)
+
+Beneath the macro declarations, we will create the actual [motor](https://pros.cs.purdue.edu/v5/api/cpp/motors.html) and [motor group](https://pros.cs.purdue.edu/v5/api/cpp/motor_groups.html) declarations.
+
+For drivetrains, we will create a motor group for each side of the drive train (right/left). In most cases, all other motors will just be singular motors. The format for a motor group will be `pros::MotorGroup NameOfGroup({FIRST_MOTOR}, {SECOND_MOTOR}, {THIRD_MOTOR}, ...);`. The format for a singular motor will be `pros::Motor Name(PORTNAME);`.
+
+**Example:**
+```cpp
+pros::MotorGroup LeftDriveSmart({LEFT_MOTOR});
+pros::MotorGroup RightDriveSmart({RIGHT_MOTOR});
+pros::Motor Arm(ARM);
+pros::Motor Claw(CLAW);
+```
+
+After these steps, the beginning of your `main.cpp` file should look something like this
+
+```cpp
+#include "main.h"
+#include "pros/motors.hpp"
+#include <cmath>
+
+#define LEFT_MOTOR 1
+#define RIGHT_MOTOR 10
+#define ARM 8
+#define CLAW 3
+
+pros::MotorGroup LeftDriveSmart({LEFT_MOTOR});
+pros::MotorGroup RightDriveSmart({RIGHT_MOTOR});
+pros::Motor Arm(ARM);
+pros::Motor Claw(CLAW);
+```
+
+If you are programming a different robot than the clawbot, your motor and motor group declarations will look different than this. This is just a basic example to help you get started. 
+
+> Recommended! Set the [braking modes](https://pros.cs.purdue.edu/v5/api/cpp/motors.html#set-brake-mode) to hold for your arm and claw motors. Go to `void initialize()` and add these two lines.
+> ```cpp
+> Arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+> Claw.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+> ```
+>
+> It should look like this:
+> ```cpp
+> void initialize() {
+>   pros::lcd::initialize();
+> 	pros::lcd::set_text(1, "Hello PROS User!");
+>
+> 	pros::lcd::register_btn1_cb(on_center_button);
+> 
+> 	Arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+> 	Claw.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+> }
+
 ### Module 3: Tank Drive & Arm/Claw Control for the Clawbot
+
+
 
 ### Module 4: Creating Autonomous Routines
 
@@ -46,4 +665,4 @@ Created by [Uijin Cho](https://github.com/uijincho), [Dhruv Patel](https://githu
 
 Suggestions? Create an [issue](https://github.com/uijincho/vex-pros/issues)
 
-Created for [Robolabs / Dublin Robotics Club](https://www.robolabs.org/)
+Created for [Robolabs | Dublin Robotics Club](https://www.robolabs.org/)
