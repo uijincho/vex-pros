@@ -26,6 +26,39 @@ Welcome to the VEX Robotics curriculum designed to teach students how to program
 
 ### Module 0: Setting up Visual Studio Code & PROS
 
+#### 1. Install [Visual Studio Code](https://code.visualstudio.com/)
+
+<div style="display: flex; justify-content: center;">
+  <img src="https://res.cloudinary.com/canonical/image/fetch/f_auto,q_auto,fl_sanitize,c_fill,w_480/https%3A%2F%2Fubuntu.com%2Fwp-content%2Fuploads%2Fc9f4%2Fvisualstudio_code-card.png" alt="VS Code">
+</div>
+
+#### 2. Download [PROS](https://pros.cs.purdue.edu/) extension in Visual Studio Code
+
+<img width="800px" src="assets/images/1.png"> </img>
+
+<img width="800px" src="assets/images/4.png"> </img>
+
+#### 3. Download C/C++ and C/C++ Extension Pack extension in Visual Studio Code
+
+<img width="800px" src="assets/images/2.png"> </img>
+
+#### 4. Click on PROS extension and install all pop ups
+
+<img width="800px" src="assets/images/3.png"> </img>
+
+#### 5. Create new PROS project and choose all recommended settings
+
+<img width="800px" src="assets/images/5.png"> </img>
+
+<img width="800px" src="assets/images/6.png"> </img>
+
+<img width="800px" src="assets/images/7.png"> </img>
+
+> It might take a while to create a new project...
+> Having trouble? Check out the official [PROS installation guide](https://pros.cs.purdue.edu/v5/getting-started/index.html)
+
+#### Congratulations! You've created your very first PROS project. :)
+
 ### Module 1: Intro to Programming & C++
 
 #### Data Types & Variables
@@ -517,14 +550,106 @@ Example Usage:
 turnToAngle(90); // Turn to 90 degrees using gyro
 ```
 
-**Tip:**
-
-You can combine these functions in `opcontrol()` or `autonomous()` to make complex behaviors simple to write and easy to adjust later.
+> You can combine these functions in `opcontrol()` or `autonomous()` to make complex behaviors simple to write and easy to adjust later.
 
 
 ### Module 2: Setting up a Project & Motors in PROS
 
+#### Create a new project in PROS
+
+<img width="800px" src="assets/images/5.png"> </img>
+
+<img width="800px" src="assets/images/6.png"> </img>
+
+<img width="800px" src="assets/images/7.png"> </img>
+
+#### Getting familiar with the project
+
+<img width="800px" src="assets/images/8.png"> </img>
+
+<img width="800px" src="assets/images/9.png"> </img>
+
+<img width="800px" src="assets/images/10.png"> </img>
+
+#### Setting up your main.cpp
+
+In the beginning of your `main.cpp` file, there is `#include "main.h"`. Beneath it, please add:
+
+```cpp
+#include "pros/motors.hpp"
+#include <cmath>
+```
+
+> What are `.h` and `.hpp` files? Check [this](https://www.geeksforgeeks.org/cpp/header-files-in-c-c-with-examples/) out
+
+Then, create [macros](https://www.geeksforgeeks.org/cpp/cpp-macros/) for your motor ports. The format will be `#define WHAT_MOTOR X`, with X being the number port on the brain that your motor is connected to.
+
+For the beginner clawbot, you will need a left drivetrain motor, right drivetrain motor, arm motor, and claw motor.
+
+**Example:**
+```cpp
+// change numbers as needed to match with ports
+#define LEFT_MOTOR 1
+#define RIGHT_MOTOR 10
+#define ARM 8
+#define CLAW 3
+```
+
+> Please use all caps for these macros :)
+
+Beneath the macro declarations, we will create the actual [motor](https://pros.cs.purdue.edu/v5/api/cpp/motors.html) and [motor group](https://pros.cs.purdue.edu/v5/api/cpp/motor_groups.html) declarations.
+
+For drivetrains, we will create a motor group for each side of the drive train (right/left). In most cases, all other motors will just be singular motors. The format for a motor group will be `pros::MotorGroup NameOfGroup({FIRST_MOTOR}, {SECOND_MOTOR}, {THIRD_MOTOR}, ...);`. The format for a singular motor will be `pros::Motor Name(PORTNAME);`.
+
+**Example:**
+```cpp
+pros::MotorGroup LeftDriveSmart({LEFT_MOTOR});
+pros::MotorGroup RightDriveSmart({RIGHT_MOTOR});
+pros::Motor Arm(ARM);
+pros::Motor Claw(CLAW);
+```
+
+After these steps, the beginning of your `main.cpp` file should look something like this
+
+```cpp
+#include "main.h"
+#include "pros/motors.hpp"
+#include <cmath>
+
+#define LEFT_MOTOR 1
+#define RIGHT_MOTOR 10
+#define ARM 8
+#define CLAW 3
+
+pros::MotorGroup LeftDriveSmart({LEFT_MOTOR});
+pros::MotorGroup RightDriveSmart({RIGHT_MOTOR});
+pros::Motor Arm(ARM);
+pros::Motor Claw(CLAW);
+```
+
+If you are programming a different robot than the clawbot, your motor and motor group declarations will look different than this. This is just a basic example to help you get started. 
+
+> Recommended! Set the [braking modes](https://pros.cs.purdue.edu/v5/api/cpp/motors.html#set-brake-mode) to hold for your arm and claw motors. Go to `void initialize()` and add these two lines.
+> ```cpp
+> Arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+> Claw.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+> ```
+>
+> It should look like this:
+> ```cpp
+> void initialize() {
+>   pros::lcd::initialize();
+> 	pros::lcd::set_text(1, "Hello PROS User!");
+>
+> 	pros::lcd::register_btn1_cb(on_center_button);
+> 
+> 	Arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+> 	Claw.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+> }
+
 ### Module 3: Tank Drive & Arm/Claw Control for the Clawbot
+
+
 
 ### Module 4: Creating Autonomous Routines
 
